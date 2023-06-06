@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook</title>
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="page.css">
+</head>
+
+<body>
+    <div class="nav">
+        <img src="./dF5SId3UHWd.svg" width="170px" alt="">
+        <div class="Input">
+            <input type="text" placeholder="Search facebook">
+            <div class="font">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+        </div>
+        <div class="icons">
+            <div class="massenger">
+
+                <div class="icon-pic">
+                    <i class="fa-brands fa-facebook-messenger"></i>
+                </div>
+            </div>
+            <div class="massenger">
+                <img src="" alt="">
+                <div class="icon-pic">
+                    <i class="fa-solid fa-bell"></i>
+                </div>
+            </div>
+            <div class="pic" id="log">
+                <img src="./WhatsApp Image 2023-04-29 at 20.12.20.jpg" alt="">
+            </div>
+            <div class="angel">
+                <i class="fa-solid fa-angle-down"></i>
+            </div>
+        </div>
+        <div class="modal hide">
+            <div class="modal-text">
+                <div class="setting">
+                    <div class="font-back"><img src="./setting.png" alt=""></div>
+                    <p>Settings & Privacy</p>
+                </div>
+                <img src="./right arroew.png" alt="">
+            </div>
+            <div class="modal-text">
+                <div class="setting">
+                    <div class="font-back"><img src="./question.png" alt=""></div>
+                    <p>Help & Support</p>
+                </div>
+                <img src="./right arroew.png" alt="">
+            </div>
+            <div class="modal-text">
+                <div class="setting">
+                    <div class="font-back"><img src="./moon.png" alt=""></div>
+                    <p>Display & accesbility</p>
+                </div>
+                <img src="./right arroew.png" alt="">
+            </div>
+            <div class="modal-text">
+                <div class="setting">
+                    <div class="font-back"><img src="./iuiu.png" alt=""></div>
+                    <p>Give feedback</p>
+                </div>
+                <img src="./right arroew.png" alt="">
+            </div>
+            <div class="modal-text" onclick="logout()">
+                <div class="setting">
+                    <div class="font-back"><img src="./logout.png" alt=""></div>
+                    <p>Log out</p>
+                </div>
+                <img src="./right arroew.png" alt="">
+            </div>
+        </div>
+        <div class="modalBoxWraper hide">
+            <div class="overlay" onclick="modals('b')"></div>
+            <div class="modalBox">
+                <div class="modal-heading">
+                    <h2>Create post</h2>
+                </div>
+                <div class="wrap-box">
+                    <div class="pics"><img src="./WhatsApp Image 2023-04-29 at 20.12.20.jpg" alt=""></div>
+                    <div class="name">
+                        <p>Muhammad Hasnain</p>
+                        <span class="public">Public</span>
+                    </div>
+                </div>
+                <div class="text-area">
+                    <textarea id="postMessage" placeholder="What's on your mind ' Muhammad?" cols="39"
+                        rows="5"></textarea>
+                </div>
+                <!-- //////////////////////////////////////////////// -->
+                <div class="pendingImg">
+                    <img src="" alt="">
+                    <div class="closeBtn" onclick="modals(this)">
+                        <p>&#10005</p>
+                    </div>
+                </div>
+                <div class="select">
+                    <span>Select to Your post</span>
+                    <label for="file"><i class="fa-solid fa-image"></i></label>
+                    <input onchange="postImage()" id="file" type="file">
+                </div>
+                <!-- //////////////////////////////////////////////// -->
+                <div class="closeBtn" onclick="modals('b')">
+                    <p>x</p>
+                </div>
+                <div class="post" onclick="post()">
+                    <button>Post</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <div class="icon-text">
+            <div class="text">
+                <i style="color: #1877F1;" class="fa-solid fa-house"></i>
+                <p>Home</p>
+            </div>
+            <div class="text">
+                <div class="pic1">
+                    <img src="./WhatsApp Image 2023-04-29 at 20.12.20.jpg" alt="">
+                </div>
+                <p>Muhammad Hasnain</p>
+            </div>
+            <div class="line"></div>
+            <div class="text">
+                <img src="./pFMzRgJZxnt (1).png" alt="">
+                <p>Watch</p>
+            </div>
+            <div class="text">
+                <img src="./fghdfghdgfhfs.png" alt="">
+                <p>Market Place</p>
+            </div>
+            <div class="text">
+                <img src="./DLWmRvgIqP_.png" alt="">
+                <p>Gaming</p>
+            </div>
+
+            <div class="text">
+                <img src="./IDuJShpKhav.png" alt="">
+                <p>Friends</p>
+            </div>
+            <div class="line"></div>
+            <div class="text">
+                <div class="pic1">
+                    <img src="./smit.png" alt="">
+                </div>
+                <p>Saylani Mass IT Training</p>
+            </div>
+
+        </div>
+        <div class="center-content">
+            <div class="story-main">
+                <div class="story-flex">
+                    <div class="story">
+                        <div class="story-icon">
+                            <i class="fa-solid fa-book"></i>
+                        </div>
+                        <p>stories</p>
+                        <span class="borderBottom"></span>
+                    </div>
+                    <div class="reel">
+                        <div class="story-icon">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                        <p>Reels</p>
+                    </div>
+                </div>
+                <div class="reel-flex">
+                    <div class="story-img1">
+                        <!-- ////////////////////////// -->
+                        <div class="my-img">
+                            <img src="./WhatsApp Image 2023-04-29 at 20.12.20.jpg" alt="">
+                            <div class="back-circle">
+                                <div class="plus-icon">
+                                    <p>+</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="create">
+                            <p>Create story</p>
+                        </div>
+                    </div>
+                    <div class="story-img">
+                        <img src="./Saylani-Courses-SMIT-Admission-Karachi.jpg" alt="">
+                    </div>
+                    <div class="story-img">
+                        <img src="./Saylani-Courses-SMIT-Admission-Karachi.jpg" alt="">
+                    </div>
+                    <div class="story-img">
+                        <img src="./Saylani-Courses-SMIT-Admission-Karachi.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="post-box">
+                <div class="post-input">
+                    <div class="pic3">
+                        <div class="pic">
+                            <img src="./WhatsApp Image 2023-04-29 at 20.12.20.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="postinput">
+                        <!-- <input onclick="modals()" placeholder="Whats,s on your mind, Muhammad?" type="text" > -->
+                        <div class="inputRobo" onclick="modals('a')">
+                            <p>Whats,s on your mind, Muhammad?</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="line1"></div>
+                <div class="icon-texts">
+                    <div class="icon-txt"><i style="color: #E42F44;" class="fa-solid fa-video"></i> Live video</div>
+                    <div class="icon-txt"><i style="color: #42B35D;" class="fa-regular fa-images"></i> Photo/video</div>
+                    <div class="icon-txt"><i style="color: #EAB026;" class="fa-regular fa-face-laugh"></i>
+                        Feeling/activity</div>
+                </div>
+            </div>
+
+            <div class="postBox">
+                <!-- <div class="post-box1">
+                        <div class="posting">
+                            <div class="pics"><img src="./WhatsApp Image 2023-04-29 at 20.12.20.jpg" alt=""></div>
+                            <div class="felxy2">
+                                <p>Muhammad Hasnain</p>
+                                <span>9h..</span>
+                            </div>
+                        </div>
+                        <span>mai nay kisi ko khud dur nahi kiya bas jis ka dil bharta gaya wo mujhse dur hota gaya</span>
+                        <div class="postImg"><img src="./WhatsApp Image 2023-04-29 at 20.12.20.jpg" alt=""></div>
+                        <div class="line"></div>
+                        <div class="likeBox">
+                            <div class="like-flex">
+                                <i class="fa-regular fa-thumbs-up"></i>
+                                <p>Like</p>
+                            </div>
+                            <div class="like-flex">
+                                <i class="fa-regular fa-comment"></i>
+                                <p>Comment</p>
+                            </div>
+                            <div class="like-flex">
+                                <i class="fa-solid fa-share"></i>
+                                <p>Share</p>
+                            </div>
+                        </div>
+                        <div class="line"></div>
+                    </div> -->
+            </div>
+
+
+        </div>
+        <div class="your-pages">
+            <h2 class="spon">Sponsored</h2>
+            <div class="sponser">
+                <div class="spon-img">
+                    <img src="./342434447_23854086612740555_9113243141181478170_n.jpeg" alt="">
+                </div>
+                <div class="spon-text">
+                    <p><strong>Share box for Rs 1800 only</strong> </p>
+                    <small>burgerclock.com.pk</small>
+                </div>
+            </div>
+            <div class="sponser">
+                <div class="spon-img">
+                    <img src="./winter.jpeg" alt="">
+                </div>
+                <div class="spon-text">
+                    <p><strong>Experience The Next Level</strong> </p>
+                    <small>Winterland</small>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- <p><strong>Experience The Next Level Craziness</strong> </p> -->
+    
+
+    <script src="./page.js"></script>
+</body>
+
+</html>
