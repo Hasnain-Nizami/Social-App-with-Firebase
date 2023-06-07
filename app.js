@@ -9,26 +9,32 @@ var radio = document.querySelectorAll(".radio")
 var userEmail = document.getElementById("email")
 var userPassword = document.getElementById("password1")
 var currentDate = new Date()
-
-
-
 const user = JSON.parse(localStorage.getItem('user')) || []
+const isLoggedInUser = JSON.parse(localStorage.getItem('isLoggedInUser'))
+if (isLoggedInUser) {
+  window.location.href = "./page.html";
+}
+
 /////////////////////////Function For Login/////////////////////
+
+
+let flag1 = true
+let flag = true
+
 function login(){
-    let flag1 = true
-    let flag = true
-    if(userEmail.value !== "" && userPassword.value !== ""){
-        const userfound = user.forEach((elm)=>{
-            if(elm.email == userEmail.value){
-                flag1 = false
-                if(elm.password == userPassword.value){
-                    window.location.href="./page.html";
-                    flag = false
-                } 
-            }
-        })
-           
-    }else{
+if(userEmail.value !== "" && userPassword.value !== ""){
+    const userfound = user.forEach((elm)=>{
+        if(elm.email == userEmail.value){
+            flag1 = false
+            if(elm.password == userPassword.value){
+                localStorage.setItem('isLoggedInUser', JSON.stringify(elm))
+                window.location.href="./page.html";
+                flag = false
+            } 
+        }
+    })
+    
+}else{
         alert("fill all input fields")
         return
     }
@@ -77,7 +83,7 @@ function signup(){
         date:new Date(`${year.value},${month.value},${date.value}`),
         gender:element.previousElementSibling.innerHTML
     };
-    user.push(userDetails)
+    user.unshift(userDetails)
     localStorage.setItem('user',JSON.stringify(user))
 
     firstName.value = ""

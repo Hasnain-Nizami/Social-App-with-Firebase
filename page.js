@@ -6,6 +6,23 @@ var file = document.getElementById("file");
 var postBox = document.querySelector(".postBox");
 let pendingImg = document.querySelector(".pendingImg");
 const userPosts = JSON.parse(localStorage.getItem("userPosts")) || [];
+const username = JSON.parse(localStorage.getItem("user")) || [];
+
+var userName = document.querySelectorAll(".userName")
+
+/////////////////CHECK YOUR LOGIN OR NOT////////////////////////
+const isLoggedInUser = JSON.parse(localStorage.getItem('isLoggedInUser'))
+if (!isLoggedInUser) {
+  window.location.href = "./index.html";
+}
+////////////////////////////////////////////////////
+const fullName = `${isLoggedInUser.firstname} ${isLoggedInUser.lastName}`
+postmessage1.placeholder = `What's on your mind ' ${fullName}?`
+userName.forEach((ele) => {
+  
+  ele.innerHTML = fullName
+})
+
 
 /////////////////////////////////////////////////////////
 
@@ -15,7 +32,7 @@ userPosts.forEach((ele) => {
   divElement.innerHTML = ` <div class="posting">
     <div class="pics"><img src="./WhatsApp Image 2023-04-29 at 20.12.20.jpg" alt" alt=""></div>
     <div class="felxy2">
-        <p>Muhammad Hasnain</p>
+        <p>${ele.userName}</p>
         <span>9h..</span>
     </div>
 </div>
@@ -68,10 +85,38 @@ function post() {
   //////////////////////////make crud operation/////////////////
   var divElement = document.createElement("div");
   divElement.setAttribute("class", "post-box1");
-  divElement.innerHTML = ` <div class="posting">
-    <div class="pics"><img src="" alt=""></div>
+  if(pendingImg.firstElementChild.src == window.location.href){
+    divElement.innerHTML = ` <div class="posting">
+    <div class="pics"><img src="./WhatsApp Image 2023-04-29 at 20.12.20.jpg" alt=""></div>
     <div class="felxy2">
-        <p>Muhammad Hasnain</p>
+        <p>${fullName}</p>
+        <span>9h..</span>
+    </div>
+</div>
+<span>${postmessage1.value}</span>
+<div class="line"></div>
+<div class="likeBox">
+    <div class="like-flex">
+        <i class="fa-regular fa-thumbs-up"></i>
+        <p>Like</p>
+    </div>
+    <div class="like-flex">
+        <i class="fa-regular fa-comment"></i>
+        <p>Comment</p>
+    </div>
+    <div class="like-flex">
+        <i class="fa-solid fa-share"></i>
+        <p>Share</p>
+    </div>
+</div>
+<div class="line"></div>`;
+
+  }else{
+
+    divElement.innerHTML = ` <div class="posting">
+    <div class="pics"><img src="./WhatsApp Image 2023-04-29 at 20.12.20.jpg" alt=""></div>
+    <div class="felxy2">
+        <p>${fullName}</p>
         <span>9h..</span>
     </div>
 </div>
@@ -93,12 +138,14 @@ function post() {
     </div>
 </div>
 <div class="line"></div>`;
+  }
+ 
 
  
-  
   postBox.prepend(divElement)
 
   const postObj = {
+   userName :  `${isLoggedInUser.firstname} ${isLoggedInUser.lastName}`,
    userTxt : postmessage1.value,
    userImg : pendingImg.firstElementChild.src
   }
