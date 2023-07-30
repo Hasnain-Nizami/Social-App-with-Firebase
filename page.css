@@ -138,6 +138,13 @@
 .text i{
     font-size: 25px;
 }
+.bot-nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    display: none;
+}
 .pic1{
     width: 30px;
     height: 30px;
@@ -310,6 +317,10 @@
     justify-content: space-between;
     gap: 10px;
     padding: 0.5rem;
+}
+.icon-text a{
+    text-decoration: none;
+    color: black;
 }
 .icon-txt {
     width: 100%;
@@ -530,7 +541,7 @@
 }
 .postImg{
     width: 100%;
-    background-color: aqua;
+    background-color: rgb(232, 236, 236);
     height: 500px;
     border-radius: 10px;
 }
@@ -539,6 +550,7 @@
     height: 100%;
     border-radius: 10px;
     object-fit: cover;
+    object-position: 0px -143px;
 }
 .likeBox{
     display: flex;
@@ -599,7 +611,75 @@
     display: none;
    }
    
-   /* .center-content{
-     margin: auto; 
-   } */
+  
+}
+@media screen and (max-width: 430px){
+    .icon-text{
+        display: none;
+    }
+    .modal {
+        width: 250px;
+        height: 290px;
+    }
+    .bot-nav{
+        display: flex;
+    }
+    .reel-flex{
+        height: 25vh;
+        padding: 0 0.4rem;
+        gap: 5px;
+    }
+    .main{
+        padding: 0;
+    }
+    .postinput{
+        width: 84%;
+    }
+    .post-input {
+        justify-content: center;
+        gap: 5px;
+    }
+    .inputRobo{
+        font-size: 16px;
+    }
+    .icon-texts {
+        font-size: 15px;
+    }
+    .create {
+        font-size: 14px;
+    }
+    .story, .reel{
+        font-size: 19px;
+    }
+    .postImg img {
+        object-position: 0px 2px;
+    }
+}
+
+@media screen and (max-width: 350px){
+    .create {
+        font-size: 12px;
+    }
+    .center-content {
+        padding: 0px;
+    }
+    .Input {
+        display: none;
+    }
+    .inputRobo {
+        font-size: 12px;
+    }
+    .icon-txt {
+        padding: 0rem 0;
+        font-size: 12px;
+    }
+    .story, .reel {
+        font-size: 16px;
+    }
+    .felxy2 {
+        font-size: 15px;
+    }
+    .felxy2 span{
+        font-size: 12px;
+    }
 }

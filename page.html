@@ -14,7 +14,7 @@
     
 </head>
 
-<body>
+<body style="display: none;">
     <div class="nav">
         <img src="./dF5SId3UHWd.svg" width="170px" alt="">
         <div class="Input">
@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="pic" id="log">
-                <img src="./WhatsApp Image 2023-04-29 at 20.12.20.jpg" alt="">
+                <img class="profilePic" src="./WhatsApp Image 2023-04-29 at 20.12.20.jpg" alt="">
             </div>
             <div class="angel">
                 <i class="fa-solid fa-angle-down"></i>
@@ -72,7 +72,7 @@
                 </div>
                 <img src="./right arroew.png" alt="">
             </div>
-            <div class="modal-text" onclick="logout()">
+            <div class="modal-text" id="logOut">
                 <div class="setting">
                     <div class="font-back"><img src="./logout.png" alt=""></div>
                     <p>Log out</p>
@@ -81,13 +81,13 @@
             </div>
         </div>
         <div class="modalBoxWraper hide">
-            <div class="overlay" onclick="modals('b')"></div>
+            <div class="overlay"></div>
             <div class="modalBox">
                 <div class="modal-heading">
                     <h2>Create post</h2>
                 </div>
                 <div class="wrap-box">
-                    <div class="pics"><img src="./WhatsApp Image 2023-04-29 at 20.12.20.jpg" alt=""></div>
+                    <div class="pics"><img class="profilePic" src="./WhatsApp Image 2023-04-29 at 20.12.20.jpg" alt=""></div>
                     <div class="name">
                         <p class ="userName">Muhammad Hasnain</p>
                         <span class="public">Public</span>
@@ -100,37 +100,61 @@
                 <!-- //////////////////////////////////////////////// -->
                 <div class="pendingImg">
                     <img src="" alt="">
-                    <div class="closeBtn" onclick="modals(this)">
+                    <div class="closeBtn closeImg">
                         <p>&#10005</p>
                     </div>
                 </div>
                 <div class="select">
                     <span>Select to Your post</span>
                     <label for="file"><i class="fa-solid fa-image"></i></label>
-                    <input onchange="postImage()" id="file" type="file">
+                    <input  id="file" type="file">
                 </div>
                 <!-- //////////////////////////////////////////////// -->
-                <div class="closeBtn" onclick="modals('b')">
+                <div class="closeBtn">
                     <p>x</p>
                 </div>
-                <div class="post" onclick="post()">
+                <div class="post" >
                     <button>Post</button>
                 </div>
             </div>
         </div>
     </div>
+    <nav class="bot-nav" >
+        <div class="text">
+            <i style="color: #1877F1;" class="fa-solid fa-house"></i>
+            <p>Home</p>
+        </div>
+        <a href="./user.html"><div class="text">
+            <div class="pic1">
+                <img class="profilePic" src="./WhatsApp Image 2023-04-29 at 20.12.20.jpg" alt="">
+            </div>
+            <p class="userName">Muhammad Hasnain</p>
+        </div></a>
+        <div class="text">
+            <img src="./pFMzRgJZxnt (1).png" alt="">
+            <p>Watch</p>
+        </div>
+        <div class="text">
+            <img src="./fghdfghdgfhfs.png" alt="">
+            <p>Market Place</p>
+        </div>
+        <div class="text">
+            <img src="./DLWmRvgIqP_.png" alt="">
+            <p>Gaming</p>
+        </div>
+    </nav>
     <div class="main">
         <div class="icon-text">
             <div class="text">
                 <i style="color: #1877F1;" class="fa-solid fa-house"></i>
                 <p>Home</p>
             </div>
-            <div class="text">
+            <a href="./user.html"><div class="text">
                 <div class="pic1">
-                    <img src="./WhatsApp Image 2023-04-29 at 20.12.20.jpg" alt="">
+                    <img class="profilePic" src="./WhatsApp Image 2023-04-29 at 20.12.20.jpg" alt="">
                 </div>
                 <p class="userName">Muhammad Hasnain</p>
-            </div>
+            </div></a>
             <div class="line"></div>
             <div class="text">
                 <img src="./pFMzRgJZxnt (1).png" alt="">
@@ -179,7 +203,7 @@
                     <div class="story-img1">
                         <!-- ////////////////////////// -->
                         <div class="my-img">
-                            <img src="./WhatsApp Image 2023-04-29 at 20.12.20.jpg" alt="">
+                            <img class="profilePic" src="./WhatsApp Image 2023-04-29 at 20.12.20.jpg" alt="">
                             <div class="back-circle">
                                 <div class="plus-icon">
                                     <p>+</p>
@@ -205,12 +229,12 @@
                 <div class="post-input">
                     <div class="pic3">
                         <div class="pic">
-                            <img src="./WhatsApp Image 2023-04-29 at 20.12.20.jpg" alt="">
+                            <img class="profilePic" src="./WhatsApp Image 2023-04-29 at 20.12.20.jpg" alt="">
                         </div>
                     </div>
                     <div class="postinput">
                         <!-- <input onclick="modals()" placeholder="Whats,s on your mind, Muhammad?" type="text" > -->
-                        <div class="inputRobo" onclick="modals('a')">
+                        <div class="inputRobo" >
                             <p>Whats,s on your mind, <span class ="userName">Muhammad</span>?</p>
                         </div>
                     </div>
@@ -226,33 +250,8 @@
             </div>
 
             <div class="postBox">
-                <!-- <div class="post-box1">
-                        <div class="posting">
-                            <div class="pics"><img src="./WhatsApp Image 2023-04-29 at 20.12.20.jpg" alt=""></div>
-                            <div class="felxy2">
-                                <p>Muhammad Hasnain</p>
-                                <span>9h..</span>
-                            </div>
-                        </div>
-                        <span>mai nay kisi ko khud dur nahi kiya bas jis ka dil bharta gaya wo mujhse dur hota gaya</span>
-                        <div class="postImg"><img src="./WhatsApp Image 2023-04-29 at 20.12.20.jpg" alt=""></div>
-                        <div class="line"></div>
-                        <div class="likeBox">
-                            <div class="like-flex">
-                                <i class="fa-regular fa-thumbs-up"></i>
-                                <p>Like</p>
-                            </div>
-                            <div class="like-flex">
-                                <i class="fa-regular fa-comment"></i>
-                                <p>Comment</p>
-                            </div>
-                            <div class="like-flex">
-                                <i class="fa-solid fa-share"></i>
-                                <p>Share</p>
-                            </div>
-                        </div>
-                        <div class="line"></div>
-                    </div> -->
+               
+
             </div>
 
 
@@ -280,8 +279,7 @@
         </div>
 
     </div>
-    <!-- <p><strong>Experience The Next Level Craziness</strong> </p> -->
     
 </body>
-<script src="./page.js"></script>
+<script src="./page.js" type="module"></script>
 </html>

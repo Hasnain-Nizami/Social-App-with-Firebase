@@ -1,97 +1,103 @@
-var firstName = document.getElementById("firstname")
-var surName = document.getElementById("surname")
-var createEmail = document.getElementById("createemail")
-var createPassword = document.getElementById("password")
-var date = document.querySelector(".date")
-var month = document.querySelector(".month")
-var year = document.querySelector(".year")
-var radio = document.querySelectorAll(".radio")
-var userEmail = document.getElementById("email")
-var userPassword = document.getElementById("password1")
-var currentDate = new Date()
-const user = JSON.parse(localStorage.getItem('user')) || []
-const isLoggedInUser = JSON.parse(localStorage.getItem('isLoggedInUser'))
-if (isLoggedInUser) {
-  window.location.href = "./page.html";
+import {auth,createUserWithEmailAndPassword,signInWithEmailAndPassword,collection, addDoc,db,doc,setDoc} from "./firebaseConfig.js";
+var date = document.querySelector(".date");
+var month = document.querySelector(".month");
+var year = document.querySelector(".year");
+var radio = document.querySelectorAll(".radio");
+var currentDate = new Date();
+var signUp = document.getElementById("signup");
+var loginbtn = document.querySelector(".login-btn")
+
+
+////////////////////Function For Create Account/////////////////////////////
+signUp.addEventListener("click", signup);
+function signup() {
+  var firstName = document.getElementById("firstname");
+  var surName = document.getElementById("surname");
+  var createEmail = document.getElementById("createemail");
+  var createPassword = document.getElementById("password");
+
+  if (
+    !firstName.value ||
+    !surName.value ||
+    !createEmail.value ||
+    !createPassword.value ||
+    !date.value ||
+    !month.value ||
+    !year.value
+  ) {
+    alert("Please fill all input feilds");
+    return;
+  }
+
+    let userdata = {
+    firstName: firstName.value,
+    lastName: surName.value,
+    createEmail: createEmail.value,
+    createPassword: createPassword.value,
+  };
+
+
+ createUserWithEmailAndPassword( auth,userdata.createEmail, userdata.createPassword )
+      .then((userCredential) => {
+          const user = userCredential.user.uid;
+
+          const cityRef = doc(db, 'users', user);
+         setDoc(cityRef, userdata);
+          
+    })
+    .catch((error) => {
+      const errorMessage = error.message;
+      console.log("masla hai", error.message);
+    });
+
+  firstName.value = "";
+  surName.value = "";
+  createEmail.value = "";
+  createPassword.value = "";
+  date.value = currentDate.getDate();
+  year.value = currentDate.getFullYear();
+  
 }
 
 /////////////////////////Function For Login/////////////////////
 
-
-let flag1 = true
-let flag = true
-
-function login(){
-if(userEmail.value !== "" && userPassword.value !== ""){
-    const userfound = user.forEach((elm)=>{
-        if(elm.email == userEmail.value){
-            flag1 = false
-            if(elm.password == userPassword.value){
-                localStorage.setItem('isLoggedInUser', JSON.stringify(elm))
-                window.location.href="./page.html";
-                flag = false
-            } 
-        }
-    })
-    
-}else{
-        alert("fill all input fields")
+loginbtn.addEventListener('click',login)
+let flag1 = true; 
+function login() {
+    var userEmail = document.getElementById("email");
+    var userPassword = document.getElementById("password1");
+    if(userEmail.value == "" || userPassword.value == ""){
+        alert("fill all input field")
         return
     }
-    if(flag1){
+    
+    signInWithEmailAndPassword(auth, userEmail.value, userPassword.value)
+    .then( async (userCredential) => {
+        flag1 = false
+        window.location.href = "./page.html"
+        const user = userCredential.user;
+        eror()
+        console.log("chal gya");
         
-        userEmail.style.borderColor = "red"
-        alert("Email was uncorrect")
-        return
-
-    }else if(flag){
-        userPassword.style.borderColor = "red"
-        alert("Password not match")
-        return
-    }
-    
-    userEmail.value = ""
-    userPassword.value = ""
-}
-
-function blr(elem){
-            elem.style.borderColor = "rgb(221, 223, 226)"
-
-}
-////////////////////Function For Create Account///////////////////////////// 
-function signup(){
-    
-    let element ; 
-    radio.forEach((elem)=>{
-        if(elem.checked){
-            element = elem
-        }
     })
-
-    if(!firstName.value || !surName.value || !createEmail.value || !createPassword.value || !date.value || !month.value || !year.value || !element){
-        alert("Please fill all input feilds")
-        return
-    }else if(createPassword.value.length < 8){
-        alert("Password must contain 8 character")
-        return
+    .catch((error) => {
+        const errorMessage = error.message;
+        eror()
+        console.log("nhai chala" ,error.message,);
+    });
+    
+    function eror(){
+        if(flag1){
+            userEmail.style.borderColor = "red";
+            userPassword.style.borderColor = "red";
+            return;
+          }
     }
-    const userDetails ={
-        firstname:firstName.value,
-        lastName:surName.value,
-        email:createEmail.value,
-        password:createPassword.value,
-        date:new Date(`${year.value},${month.value},${date.value}`),
-        gender:element.previousElementSibling.innerHTML
-    };
-    user.unshift(userDetails)
-    localStorage.setItem('user',JSON.stringify(user))
-
-    firstName.value = ""
-    surName.value = "" 
-    createEmail.value = ""
-    createPassword.value = ""
-    date.value = currentDate.getDate()
-    year.value = currentDate.getFullYear()
-    element.checked = false
+    
+  userEmail.value = "";
+  userPassword.value = "";
 }
 
+function blr(elem) {
+  elem.style.borderColor = "rgb(221, 223, 226)";
+}
