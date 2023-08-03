@@ -15,6 +15,7 @@ function signup() {
   var surName = document.getElementById("surname");
   var createEmail = document.getElementById("createemail");
   var createPassword = document.getElementById("password");
+  const closeSignUp = document.getElementById("closeSignUp")
 
   if (
     !firstName.value ||
@@ -34,6 +35,7 @@ function signup() {
     lastName: surName.value,
     createEmail: createEmail.value,
     createPassword: createPassword.value,
+    profileImg: ''
   };
 
 
@@ -43,6 +45,8 @@ function signup() {
 
           const cityRef = doc(db, 'users', user);
          setDoc(cityRef, userdata);
+  closeSignUp.click()
+
           
     })
     .catch((error) => {
@@ -96,6 +100,7 @@ function login() {
     
   userEmail.value = "";
   userPassword.value = "";
+
 }
 
 function blr(elem) {

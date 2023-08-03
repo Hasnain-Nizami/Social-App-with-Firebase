@@ -4,9 +4,6 @@
     box-sizing: border-box;
     font-family: sans-serif;
 }
-body{
-    display: none;
-}
 .nav{
     display: flex;
     justify-content: space-between;
@@ -270,6 +267,13 @@ body{
     text-align: center;
     cursor: pointer;
  }
+ .spinloader{
+    width: 100%;
+    min-height: 100vh;
+    display: grid;
+    place-content: center;
+    background-color: rgb(241, 242, 243);
+}
 
 
  @media screen and (max-width: 984px){

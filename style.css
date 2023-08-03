@@ -176,3 +176,46 @@
 .hide{
     display: none !important;
 }
+
+@media screen and (max-width: 900px){
+    .flexwraper {
+        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
+    }
+    .logo {
+        align-items: center;
+    }
+    .logo-box {
+     width: 60%;
+     align-items: center;
+     min-height: 34vh;
+    }
+    .logo p {
+        font-size: 25px;
+        padding: 0;
+        margin: 0;
+        padding-left: 29px
+    }
+
+}
+@media screen and (max-width: 750px){
+    .logo p {
+        font-size: 23px;
+        padding: 0;
+        margin: 0;
+        padding-left: 22px;
+    }
+}
+@media screen and (max-width: 417px){
+    .logo-box {
+        width: 100%;
+    }
+    .logo p {
+        font-size: 21px;
+        padding: 0;
+        margin: 0;
+        padding-left: 22px;
+        line-height: 1.4;
+    }
+}

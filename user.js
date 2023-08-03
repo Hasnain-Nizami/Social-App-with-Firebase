@@ -5,6 +5,10 @@ window.addEventListener("load",()=>{
 
   let username = document.getElementById("username")
   let profileimg = document.querySelectorAll('.profileimg')
+
+  var spinloader = document.querySelector(".spinloader")
+  var first = document.querySelector(".first")
+
   onAuthStateChanged(auth, (user) => {
     if (user) {
       uid = user.uid;
@@ -14,9 +18,10 @@ window.addEventListener("load",()=>{
         if (docSnap.exists()) {
           const userData = docSnap.data()
           console.log(userData);
-          document.body.style.display = "block";
+           spinloader.style.display = "none"
+           first.style.display = "block"
           username.innerHTML= `${userData.firstName} ${userData.lastName}`;
-          if(userData.profileImg !== undefined){
+          if(userData.profileImg !== ""){
             profileimg.forEach((ele)=>{
               ele.src = userData.profileImg
           })

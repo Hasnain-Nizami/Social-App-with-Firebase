@@ -12,28 +12,44 @@ import {
   getDownloadURL,
   doc,
   getDoc,
+  serverTimestamp,
+  query,
+   orderBy,
+  
 } from "./firebaseConfig.js";
 let activeUser = "";
 let activeUserName = "";
 var userName = document.querySelectorAll(".userName");
 var postmessage1 = document.getElementById("postMessage");
 var file = document.getElementById("file");
-let onlineUserProfilePic ;
 
 window.addEventListener("load", loadPosts);
 async function loadPosts() {
-  const querySnapshot = await getDocs(collection(db, "posts"));
-  querySnapshot.forEach((doc) => {
-    let userNames = doc.data().fullName;
-    let userText = doc.data().text;
-    let image = doc.data().postImageUrl
-    let dp = doc.data().dp
-    postFun(userNames, userText,image,dp);
-  });
+
+  try {
+    const postsRef = collection(db, "posts");
+    const q = query(postsRef, orderBy("time"));
+
+    const querySnapshot = await getDocs(q);
+
+    querySnapshot.forEach((doc) => {
+      const { fullName, text, postImageUrl, userId, time } = doc.data();
+      postFun(fullName, text, postImageUrl, userId, time);
+    });
+
+    var spinloader = document.querySelector(".spinloader");
+    var first = document.querySelector(".first");
+    spinloader.style.display = "none";
+    first.style.display = "block";
+  } catch (e) {
+    console.log(e.message);
+  }
+  
 }
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
+    activeUser = user
     let profilePic = document.querySelectorAll(".profilePic")
     const uid = user.uid;
     const docRef = doc(db, "users", uid);
@@ -46,11 +62,10 @@ onAuthStateChanged(auth, (user) => {
         userName.forEach((ele) => {
           ele.innerHTML = `${activeUserName}`;
         });
-        if(userData.profileImg !== undefined){
+        if(userData.profileImg !== ""){
           profilePic.forEach((ele)=>{
             ele.src = userData.profileImg
         })
-        onlineUserProfilePic = userData.profileImg
       }else{
         profilePic.forEach((ele)=>{
           ele.src = "./download.jpeg"
@@ -97,6 +112,7 @@ inputRobo.addEventListener("click", modals);
 
 const closeBtn = document.querySelectorAll(".closeBtn");
 const overlay = document.querySelector(".overlay");
+const close = document.getElementById("close");
 
 overlay.addEventListener("click", modals);
 closeBtn.forEach((ele) => {
@@ -108,18 +124,26 @@ post.addEventListener("click", createPost);
 let pendingImg = document.querySelector(".pendingImg");
 
 async function createPost() {
-
+  let currentTime = new Date()
+  
   let pic = file.files[0]
  if(pic == undefined){
         try {
           const response = await addDoc(collection(db, "posts"), {
               fullName: `${activeUserName}`,
               text: `${postmessage1.value}`,
-              dp:onlineUserProfilePic
-          });
-          postFun(activeUserName, postmessage1.value,onlineUserProfilePic);
-      } catch (e) {
-          alert(e.message);
+              userId: `${activeUser.uid}`,
+              time: serverTimestamp()
+            });
+
+              const docRef = doc(db, "posts",response.id);
+              const docSnap = await getDoc(docRef);
+              
+            postFun(activeUserName, postmessage1.value,"",activeUser.uid,docSnap.data().time);
+          } catch (e) {
+            // alert(e.message);
+            // console.log(onlineUserProfilePic);
+          console.log(e.message);
       }
       return
  }
@@ -157,15 +181,19 @@ uploadTask.on('state_changed',
 () => {
 
   getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-
+    console.log(currentTime.toLocaleString());
       try {
           const response = await addDoc(collection(db, "posts"), {
-              fullName: `${activeUserName}`,
-              text: `${postmessage1.value}`,
-              postImageUrl: downloadURL,
-              dp:onlineUserProfilePic
+            fullName: `${activeUserName}`,
+            text: `${postmessage1.value}`,
+            postImageUrl: downloadURL,
+            userId: `${activeUser.uid}`,
+            time: serverTimestamp()
           });
-          postFun(activeUserName, postmessage1.value,downloadURL,onlineUserProfilePic);
+
+          const docRef = doc(db, "posts",response.id);
+          const docSnap = await getDoc(docRef);
+          postFun(activeUserName,postmessage1.value,downloadURL,activeUser.uid,docSnap.data().time);
       } catch (e) {
           alert(e.message);
       }
@@ -177,16 +205,17 @@ uploadTask.on('state_changed',
  
 }
 
-async function postFun(name, text,image,dp) {
+async function postFun(name, text,image,userId,time) {
+  const authorDetails = await getAuthorData(userId)
   //////////////////////////make crud operation/////////////////
  
   var divElement = document.createElement("div");
   divElement.setAttribute("class", "post-box1");
     divElement.innerHTML = ` <div class="posting">
-    <div class="pics"><img src="${dp || "./download.jpeg"}" alt=""></div>
+    <div class="pics"><img src="${authorDetails.profileImg ? `${authorDetails.profileImg}`: "./download.jpeg"}" alt=""></div>
     <div class="felxy2">
         <p>${name}</p>
-        <span>9h..</span>
+        <span>${new Date(time.seconds*1000).toLocaleString()}</span>
     </div>
 </div>
 <span>${text}</span>
@@ -210,6 +239,7 @@ async function postFun(name, text,image,dp) {
   
 
   postBox.prepend(divElement);
+  close.click()
 }
 
 
@@ -242,4 +272,21 @@ function modals(value) {
     modalbox.classList.add("hide");
     document.querySelector("html").style.overflowY = "auto";
   }
+}
+
+
+async function getAuthorData(id){
+  try{
+    const docRef = doc(db, "users", id);
+    const docSnap = await getDoc(docRef);
+    
+    if (docSnap.exists()) {
+      return docSnap.data();
+    } else {
+      console.log("No such document!");
+    }
+  }catch(e){
+      console.log(e.message);
+  }
+ 
 }
